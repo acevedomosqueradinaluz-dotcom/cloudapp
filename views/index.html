@@ -1,57 +1,153 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudApp</title>
-
+    <title>Sistema de Opiniones Dinámico</title>
     <style>
-        body{
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
+        /* 1. Modificar la aplicación: Colores y Diseño */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        /* Menú de navegación */
+        nav {
+            background-color: #0056b3;
+            padding: 15px;
             text-align: center;
-            padding-top: 60px;
         }
-
-        .contenedor{
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
             background: white;
-            width: 60%;
-            margin: auto;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
-        h1{
-            color: #0077cc;
+        h1 { color: #0056b3; text-align: center; }
+        .hero-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
-
-        p{
-            font-size: 18px;
+        /* Formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #eef2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
         }
+        input, textarea, button {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover { background-color: #218838; }
+        /* Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th { background-color: #0056b3; color: white; }
     </style>
 </head>
 <body>
 
-    <div class="contenedor">
-        <h1>Aplicación en la Nube ☁️</h1>
+    <!-- Menú de Navegación -->
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Opiniones</a>
+        <a href="#">Contacto</a>
+    </nav>
 
-        <p><strong>Estudiante:</strong>dina acevedo</p>
+    <div class="container">
+        <!-- Nombre y Mensajes modificados -->
+        <h1>✉️ Buzón de Opiniones de la Comunidad</h1>
+        <p style="text-align: center; color: #666;">Tu voz es muy importante. Déjanos tus comentarios y visualízalos en la tabla dinámica de abajo.</p>
 
-        <p>La aplicación está alojada en la nube correctamente.</p>
+        <!-- Imagen llamativa integrada -->
+        <img src="https://picsum.photos" alt="Comunidad" class="hero-img">
 
-        <p>Servidor funcionando 24/7 desde internet.</p>
+        <!-- Formulario solicitado -->
+        <form id="opinionForm">
+            <h3>Escribe tu comentario aquí:</h3>
+            <input type="text" id="nombreInput" placeholder="Tu Nombre completo" required>
+            <textarea id="mensajeInput" rows="3" placeholder="Escribe tu mensaje o sugerencia aquí..." required></textarea>
+            <button type="submit">Enviar Opinión Dinámica</button>
+        </form>
 
-        <p id="fecha"></p>
+        <!-- Tabla de Información Dinámica -->
+        <h3>📋 Registro de Comentarios recibidos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Mensaje / Opinión</th>
+                </tr>
+            </thead>
+            <tbody id="tablaOpiniones">
+                <!-- Información Dinámica integrada con JavaScript -->
+                <tr>
+                    <td>Dina Luz</td>
+                    <td>¡Hola! Esta es la primera prueba de la tabla dinámica funcionando.</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
+    <!-- Lógica de Información Dinámica -->
     <script>
-        const fecha = new Date();
-
-        document.getElementById("fecha").innerHTML =
-            "Fecha y hora: " + fecha;
+        document.getElementById('opinionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Capturar datos del formulario
+            const nombre = document.getElementById('nombreInput').value;
+            const mensaje = document.getElementById('mensajeInput').value;
+            
+            // Crear nueva fila para la tabla dinámicamente
+            const tabla = document.getElementById('tablaOpiniones');
+            const nuevaFila = document.createElement('tr');
+            
+            nuevaFila.innerHTML = `
+                <td><strong>${nombre}</strong></td>
+                <td>${mensaje}</td>
+            `;
+            
+            // Insertar datos en la tabla
+            tabla.appendChild(nuevaFila);
+            
+            // Limpiar formulario
+            document.getElementById('opinionForm').reset();
+        });
     </script>
-
 </body>
 </html>
  
